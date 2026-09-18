@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "ankit.gpu",
+  "name": "GPU",
+  "version": "0.1.0",
+  "author": "Ankit-x1",
+  "license": "MIT",
+  "description": "Bar widget for NVIDIA VRAM and utilization (nvidia-smi).",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "GPU",
+    "description": "Live NVIDIA utilization and VRAM",
+    "category": "System",
+    "allowMultiple": false
+  }
+}

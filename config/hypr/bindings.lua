@@ -12,6 +12,19 @@
 -- To disable all preinstalled app/webapp bindings, set:
 --   omarchy_preinstalled_bindings = false
 
+-- Patch Onarchy workspace roles:
+--   1 code (nvim / editor)
+--   2 terminal
+--   3 monitor (nvtop, btop, lazydocker)
+--   4 browser
+--   5 training / notebooks
+-- SUPER + 1..5 already switch workspaces in Omarchy defaults.
+
+o.window({ title = "[Nn]vtop" }, { workspace = "3", float = true })
+o.window({ class = "org.omarchy.btop" }, { workspace = "3" })
+o.window({ title = "[Ll]azydocker" }, { workspace = "3", float = true })
+o.window({ title = "[Jj]upyter" }, { workspace = "5" })
+
 -- Add a new binding.
 -- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")
 
