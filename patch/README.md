@@ -1,57 +1,59 @@
 # Patch Onarchy
 
-Your Omarchy Quattro fork: Arch + Hyprland + Quickshell, tuned for ML, robotics, Docker, and agent work.
+An ML, robotics, Docker, and agent-work overlay on top of [Omarchy](https://github.com/omacom/omarchy).
+This Windows checkout is for editing and pushing; the desktop overlay runs on Linux.
 
-This Windows checkout is only for editing and pushing. The desktop itself runs on Linux.
+## What this adds
 
-## What changed vs stock Omarchy
+| Layer | Location | Purpose |
+| --- | --- | --- |
+| Packages | `patch/packages.txt` | CUDA tools, Docker, Python, and robotics dependencies |
+| Theme | `themes/patch-onarchy/` | Patch Onarchy color and application theme |
+| Hyprland | `config/hypr/bindings.lua` | Workspace roles for code, monitoring, and training |
+| GPU widget | `patch/plugins/ankit.gpu/` | NVIDIA utilization and VRAM in the bar |
+| Python environments | `~/.venvs/` | `axon` and `robotics` environments |
 
-Quattro is package-based. The old `OMARCHY_REF=... curl boot.sh` install does **not** work on v4. Official installs use the [Omarchy ISO](https://iso.omarchy.org/). This repo is the **source overlay**: extra packages, a theme, Hyprland workspace roles, and a GPU bar plugin.
+## Install on Omarchy Linux
 
-## On the Linux machine (once)
-
-1. Install Omarchy from the official ISO and finish first boot.
-2. Clone this repo (not into `$HOME` random folders if you want it elsewhere):
+Install Omarchy from the official [Omarchy ISO](https://iso.omarchy.org/) first, then:
 
 ```bash
 git clone git@github.com:Ankit-x1/patch_onarchy.git ~/Projects/patch_onarchy
 cd ~/Projects/patch_onarchy
 git checkout ankit-dev
-```
 
-3. Point Omarchy at this checkout, then reboot:
-
-```bash
 omarchy-dev-link ~/Projects/patch_onarchy
-```
-
-4. Apply the Patch Onarchy extras:
-
-```bash
 bash ~/Projects/patch_onarchy/patch/apply.sh
 ```
 
-5. After that, edit files here and reload:
+After editing the linked checkout, refresh the affected config:
 
 ```bash
 omarchy-refresh-config hypr/bindings.lua
 hyprctl reload
 ```
 
-## What to customize next
+## Python environments
 
-| Layer | Where | Do this |
-| --- | --- | --- |
-| Packages | `patch/packages.txt` | Add CUDA-adjacent tools; keep PyTorch/JAX in `~/.venvs/axon` |
-| Theme | `themes/patch-onarchy/` | Tweak `colors.toml` (24-color palette drives terminal, nvim, btop, bar) |
-| Hyprland | `config/hypr/bindings.lua` | Workspace roles and window rules |
-| Bar widgets | `patch/plugins/` | GPU is `ankit.gpu`; clone more with `omarchy plugin clone` |
-| Agents | built-in `omarchy.agents` | Already on the bar for Claude/Codex usage |
+The installer creates these environments and does not install CUDA wheels automatically:
 
-Pull upstream later:
+```bash
+source ~/.venvs/axon/bin/activate       # FastAPI, JupyterLab, Qdrant client
+source ~/.venvs/robotics/bin/activate   # NumPy, SciPy, ONNX
+```
+
+Install a PyTorch wheel that matches the NVIDIA driver on the Linux machine.
+
+## Pull upstream changes
 
 ```bash
 git fetch upstream
 git rebase upstream/quattro
 git push origin ankit-dev --force-with-lease
+```
+
+Validate the installer before committing:
+
+```bash
+bash -n patch/apply.sh
 ```

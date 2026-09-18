@@ -1,26 +1,39 @@
 # Arch packages for Patch Onarchy (ML / robotics / agent work).
 # Applied by patch/apply.sh via omarchy-pkg-add.
-# CUDA drivers themselves come from Omarchy's NVIDIA hardware install.
+# NVIDIA drivers are managed by Omarchy's hardware setup.
 
+# GPU and system monitoring
 cuda
 nvtop
+htop
+btop
+
+# Python and development
+python
 python-pip
 python-virtualenv
 python-setuptools
 jupyterlab
 git-lfs
-tmux
-htop
-ripgrep
-fd
-jq
-unzip
-zip
 base-devel
 clang
 cmake
 ninja
 pkgconf
+
+# Containers and services
+docker
+docker-compose
+lazydocker
+redis
+
+# CLI and data tools
+tmux
+ripgrep
+fd
+jq
+unzip
+zip
 opencv
 python-numpy
 python-pillow
