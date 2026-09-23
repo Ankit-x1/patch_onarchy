@@ -20,7 +20,7 @@ Install Omarchy from the official [Omarchy ISO](https://iso.omarchy.org/) first,
 ```bash
 git clone git@github.com:Ankit-x1/patch_onarchy.git ~/Projects/patch_onarchy
 cd ~/Projects/patch_onarchy
-git checkout ankit-dev
+git switch main
 
 omarchy-dev-link ~/Projects/patch_onarchy
 bash ~/Projects/patch_onarchy/patch/apply.sh
